@@ -4,9 +4,15 @@
 
 这是一个测试项目，可能会有不可预测的事情发生（比如：毁损数据、烧毁硬件等等），请**谨慎使用**。
 
-[English](README_EN.md "English")
+[English](README_en.md "English")
 
 感谢 @haydibe 提供 RedPill Tool Chain
+
+## 关于此Fork
+1. 这个Fork是个人用来建立Unraid里面的虚拟机的。所以VID和PID都是没改过的0x0001和0x46f4。 这个主要是用在虚拟机的。PVE和ESXI应该也能用。
+2. 加了r8125的2.5G网卡驱动， r8152的USB2.5G网卡似乎上游pocopico库不好用，没识别出来，还得靠套件驱动，也不稳定。注释在里面了。
+3. 在Workflow的Action里面自动修改dtb，以支持DS920+等型号。不过这些型号网上没有洗白码买，建议还是用DS918+。
+4. dtb中将pci硬盘的地址改成了00:04.0。 这个一般Unraid中第一个虚拟Sata硬盘就是这个位置。如果是别的硬盘位置，可以改Action里面的脚本。
 
 ## 关于项目?
 
@@ -43,17 +49,6 @@
 自定义驱动请按需添加，尽量不要加载无关驱动，否则会因为扩展驱动太大导致打包失败。
 
 依赖: `docker`
-
----
-⚠️⚠️⚠️
-由于各版本环境不完全一致，制作策略会有细节变化，具体可以参考 [工作流配置文件](https://github.com/tossp/redpill-tool-chain/blob/master/.github/workflows/test.yml)
-
-在 [Gtihub Actions](https://github.com/tossp/redpill-tool-chain/actions) 中查看执行结果，并下载生成的镜像
-
-❗❗❗
-[工作流配置文件](https://github.com/tossp/redpill-tool-chain/blob/master/.github/workflows/test.yml) 中引入的扩展都是推荐必装扩展
-
----
 
 ## 快捷说明
 
@@ -124,13 +119,12 @@ Actions: build, auto, run, clean, add, del, sn, pat
             DS3615xs DS3617xs DS916+ DS918+ DS920+ DS3622xs+ FS6400 DVA3219 DVA3221 DS1621+
             eg: sn ds920p
 
-- pat:      For decoding PAT file.
+- pat:      For decoding PAT file. see: https://github.com/tossp/redpill-tool-chain/blob/master/.github/workflows/pat.yml
 
 Available platform versions:
 ---------------------
 ds1621p-7.0.1-42218
 ds1621p-7.1.0-42661
-ds2422p-7.0.1-42218
 ds3615xs-6.2.4-25556
 ds3615xs-7.0.1-42218
 ds3615xs-7.1.0-42661
